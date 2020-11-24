@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文章归档 | Apexdocker</title>
+<title>iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包 | Apexdocker</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,12 @@
 
 
 
-    <meta name="description" content="温故而知新">
+    <meta name="description" content="
+今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术
+
+
+再次查询发现，越狱的ios只要安装ssl-kill-switch..." />
+    <meta name="keywords" content="charles" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,47 +93,59 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          
+          <div class="post-detail">
+            <h2 class="post-title">iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包</h2>
+            <div class="post-date">2020-11-22</div>
+            
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术</p>
+</blockquote>
+<!-- more -->
+<p>再次查询发现，越狱的ios只要安装<a href="https://github.com/nabla-c0d3/ssl-kill-switch2">ssl-kill-switch2</a>就可以抓到了</p>
+<h4 id="1-在cydia中安装下面3个依赖">1、在Cydia中安装下面3个依赖</h4>
+<ul>
+<li>Debian Packager</li>
+<li>Cydia Substrate</li>
+<li>PreferenceLoader</li>
+</ul>
+<h4 id="2-下载ssl-kill-switch2deb">2、下载ssl-kill-switch2.deb</h4>
+<p>https://github.com/nabla-c0d3/ssl-kill-switch2/releases</p>
+<h4 id="3-mac通过usb连接手机安装ssl-kill-switch2deb">3、Mac通过USB连接手机，安装ssl-kill-switch2.deb</h4>
+<p>ios9 需要通过Cydia安装 openssh</p>
+<pre><code>brew install libimobiledevice
+iproxy 2222 22
+scp -P 2222 ~/Downloads/ssl-kill-switch2.deb root@127.0.0.1:~     #输入密码 默认  alpine
+ssh -p 2222 root@127.0.0.1
+dpkg -i &lt;package&gt;.deb
+killall -HUP SpringBoard
+</code></pre>
+<p>然后在设置中就会增加一个选项 SSL Kill Switch2，开启后，重启APP即可抓包</p>
 
-          <h2 class="archives-title">文章归档</h2>
-          <div class="archives-container">
+            </div>
             
-              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2020</h2>
-              
+              <div class="tag-container">
                 
-                  <article class="post">
-                    <a href="https://apexdocker.github.io/post/ios_charles/">
-                      <h2 class="post-title">
-                        iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包
-                      </h2>
-                    </a>
-                  </article>
+                  <a href="https://apexdocker.github.io/tag/lUDzfsGOI/" class="tag">
+                    charles
+                  </a>
                 
-              
-                
-              
+              </div>
             
-              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2018</h2>
-              
-                
-              
-                
-                  <article class="post">
-                    <a href="https://apexdocker.github.io/post/hello-gridea/">
-                      <h2 class="post-title">
-                        Hello Gridea
-                      </h2>
-                    </a>
-                  </article>
-                
-              
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://apexdocker.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
-
-          <div class="pagination-container">
-  
-  
-</div>
 
         </div>
       </div>
