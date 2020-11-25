@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.carryla.com</id>
     <title>Apexdocker</title>
-    <updated>2020-11-25T02:59:17.860Z</updated>
+    <updated>2020-11-25T03:24:06.687Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.carryla.com"/>
     <link rel="self" href="https://blog.carryla.com/atom.xml"/>
@@ -10,6 +10,49 @@
     <logo>https://blog.carryla.com/images/avatar.png</logo>
     <icon>https://blog.carryla.com/favicon.ico</icon>
     <rights>All rights reserved 2020, Apexdocker</rights>
+    <entry>
+        <title type="html"><![CDATA[Android 通过 VirtualXposed 进行 Charles https 抓包]]></title>
+        <id>https://blog.carryla.com/post/android-virtualxposed-charles-https/</id>
+        <link href="https://blog.carryla.com/post/android-virtualxposed-charles-https/">
+        </link>
+        <updated>2020-11-25T03:16:41.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>Android7.0以上，无需root，即可抓包的方法</p>
+</blockquote>
+<p>由于Android的机制，7.0以上不再信任用户证书，如<a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/">Charles</a>中的介绍</p>
+<p>所以有3种方法可以解决这个问题：</p>
+<ul>
+<li>最暴力的，root，把证书加入到系统证书</li>
+<li>如果是自家APP，参考上面链接，在APP中设置信任用户证书</li>
+<li>通过VirtualXposed+插件绕过证书检查（本文）</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>Android7.0以上，无需root，即可抓包的方法</p>
+</blockquote>
+<p>由于Android的机制，7.0以上不再信任用户证书，如<a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/">Charles</a>中的介绍</p>
+<p>所以有3种方法可以解决这个问题：</p>
+<ul>
+<li>最暴力的，root，把证书加入到系统证书</li>
+<li>如果是自家APP，参考上面链接，在APP中设置信任用户证书</li>
+<li>通过VirtualXposed+插件绕过证书检查（本文）</li>
+</ul>
+<!-- more -->
+<h3 id="1-手机安装virtualxposed">1、手机安装VirtualXposed</h3>
+<p>不多介绍，直接下载安装<br>
+地址：https://github.com/android-hacker/VirtualXposed/releases</p>
+<h3 id="2-virtualxposed中安装-justtrustme-或-sslunpinning-用于绕过-ssl-证书检查">2、VirtualXposed中安装 JustTrustMe 或  SSLUnpinning 用于绕过 SSL 证书检查</h3>
+<ul>
+<li>JustTrustMe：https://github.com/Fuzion24/JustTrustMe/releases</li>
+<li>TrustMeAlready：https://github.com/ViRb3/TrustMeAlready</li>
+<li>SSLUnpinning：https://github.com/ac-pm/SSLUnpinning_Xposed/blob/master/mobi.acpm.sslunpinning_latest.apk</li>
+</ul>
+<p>在VirtualXposed中安装apk并启用模块<br>
+并在设置中，点击重启以使模块生效</p>
+<h3 id="3-virtualxposed中安装目标apk">3、VirtualXposed中安装目标apk</h3>
+<p>在VirtualXposed中安装目标apk，并配置好抓包工具，从VirtualXposed中启动APP开始抓包</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包]]></title>
         <id>https://blog.carryla.com/post/ios_charles/</id>
