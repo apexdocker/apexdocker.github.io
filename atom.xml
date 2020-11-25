@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.carryla.com</id>
     <title>Apexdocker</title>
-    <updated>2020-11-25T03:38:55.224Z</updated>
+    <updated>2020-11-25T14:06:00.195Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.carryla.com"/>
     <link rel="self" href="https://blog.carryla.com/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://blog.carryla.com/images/avatar.png</logo>
     <icon>https://blog.carryla.com/favicon.ico</icon>
     <rights>All rights reserved 2020, Apexdocker</rights>
+    <entry>
+        <title type="html"><![CDATA[五阿哥耗子尾汁]]></title>
+        <id>https://blog.carryla.com/post/wu-a-ge-hao-zi-wei-zhi/</id>
+        <link href="https://blog.carryla.com/post/wu-a-ge-hao-zi-wei-zhi/">
+        </link>
+        <updated>2020-11-25T14:04:53.000Z</updated>
+        <content type="html"><![CDATA[<p>。。。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[本地 STF 内网穿透公网访问]]></title>
         <id>https://blog.carryla.com/post/local-stf-frp/</id>
@@ -133,12 +142,13 @@ remote_port = 7110
         <summary type="html"><![CDATA[<blockquote>
 <p>今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术</p>
 </blockquote>
+<p>查询发现，越狱的ios只要安装<a href="https://github.com/nabla-c0d3/ssl-kill-switch2">ssl-kill-switch2</a>就可以抓到了</p>
 ]]></summary>
         <content type="html"><![CDATA[<blockquote>
 <p>今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术</p>
 </blockquote>
+<p>查询发现，越狱的ios只要安装<a href="https://github.com/nabla-c0d3/ssl-kill-switch2">ssl-kill-switch2</a>就可以抓到了</p>
 <!-- more -->
-<p>再次查询发现，越狱的ios只要安装<a href="https://github.com/nabla-c0d3/ssl-kill-switch2">ssl-kill-switch2</a>就可以抓到了</p>
 <h4 id="1-在cydia中安装下面3个依赖">1、在Cydia中安装下面3个依赖</h4>
 <ul>
 <li>Debian Packager</li>
