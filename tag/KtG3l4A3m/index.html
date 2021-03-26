@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>charles | Apexdocker</title>
+<title>appium | Apexdocker</title>
 
 <link rel="shortcut icon" href="https://blog.carryla.com/favicon.ico?v=1616752449871">
 
@@ -87,7 +87,7 @@
 
         <div class="current-tag-container">
             <h2 class="title gt-c-content-color-first">
-                #charles
+                #appium
             </h2>
         </div>
         <div class="post-list-container">
@@ -97,21 +97,17 @@
                 <div class="post-left">
                     <div>
                         
-                        <a href="https://blog.carryla.com/post/android-virtualxposed-charles-https/">
-                            <span class="post-title gt-c-content-color-first">Android 通过 VirtualXposed 进行 Charles https 抓包</span>
+                        <a href="https://blog.carryla.com/post/ui-image-compare/">
+                            <span class="post-title gt-c-content-color-first">UI自动化图片相似度检测</span>
                         </a>
                     </div>
                     <div class="gt-post-content post-abstract gt-c-content-color-second">
                         <blockquote>
-<p>Android7.0以上，无需root，即可抓包的方法</p>
+<p>在不同分辨率手机上校验图标是否存在的方法</p>
 </blockquote>
-<p>由于Android的机制，7.0以上不再信任用户证书，如<a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/">Charles</a>中的介绍</p>
-<p>所以有3种方法可以解决这个问题：</p>
-<ul>
-<li>最暴力的，root，把证书加入到系统证书</li>
-<li>如果是自家APP，参考上面链接，在APP中设置信任用户证书</li>
-<li>通过VirtualXposed+插件绕过证书检查（本文）</li>
-</ul>
+<h2 id="brute-force匹配器基础">Brute-Force匹配器基础</h2>
+<p>Brute-Force匹配器很简单，它取第一个集合里一个特征的描述子并用第二个集合里所有其他的特征和他通过一些距离计算进行匹配。最近的返回。</p>
+<p>对于BF匹配器，首先我们得用cv2.BFMatcher()创建BF匹配器对象.它取两个可选参数，第一个是normType。它指定要使用的距离量度。默认是cv2.NORM_L2。对于SIFT,SURF很好。（还有cv2.NORM_L1）。对于二进制字符串的描述子，比如ORB，BRIEF，BRISK等，应该用cv2.NORM_HAMMING。使用Hamming距离度量，如果ORB使用VTA_K == 3或者4，应该用cv2.NORM_HAMMING2</p>
 
                     </div>
                     <div class="post-info">
@@ -119,37 +115,12 @@
                             发布于 · 2020-11-25 ·
                         </time>
                         
-                            <a href="https://blog.carryla.com/tag/lUDzfsGOI/" class="post-tag">
-                                # charles
+                            <a href="https://blog.carryla.com/tag/wz6C5_Czq/" class="post-tag">
+                                # cv
                             </a>
                         
-                    </div>
-                </div>
-                
-            </div>
-        
-            <div class="post gt-bg-theme-color-second">
-                <div class="post-left">
-                    <div>
-                        
-                        <a href="https://blog.carryla.com/post/ios_charles/">
-                            <span class="post-title gt-c-content-color-first">iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包</span>
-                        </a>
-                    </div>
-                    <div class="gt-post-content post-abstract gt-c-content-color-second">
-                        <blockquote>
-<p>今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术</p>
-</blockquote>
-<p>查询发现，越狱的ios只要安装<a href="https://github.com/nabla-c0d3/ssl-kill-switch2">ssl-kill-switch2</a>就可以抓到了</p>
-
-                    </div>
-                    <div class="post-info">
-                        <time class="post-time gt-c-content-color-first">
-                            发布于 · 2020-11-22 ·
-                        </time>
-                        
-                            <a href="https://blog.carryla.com/tag/lUDzfsGOI/" class="post-tag">
-                                # charles
+                            <a href="https://blog.carryla.com/tag/KtG3l4A3m/" class="post-tag">
+                                # appium
                             </a>
                         
                     </div>
