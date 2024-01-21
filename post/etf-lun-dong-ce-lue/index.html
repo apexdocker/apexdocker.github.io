@@ -1,0 +1,325 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>ETF轮动策略 | Carryla</title>
+
+<link rel="shortcut icon" href="https://blog.carryla.com/favicon.ico?v=1705840330883">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.carryla.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Carryla
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1705840330883" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    ETF轮动策略
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-02-06 ·
+                    </time>
+                    
+                        <a href="https://blog.carryla.com/tag/tPAs-aBD5/" class="post-tags">
+                            # 投资
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="概述">概述</h1>
+<p>1、ETF即场内基金，比公募操作灵活，可以在交易t日不同时刻买入，交易t+1任意时刻卖出，一般比股票波动略小<br>
+2、轮动即为在每一时间周期开始的时候进行检查，调入符合策略的标的，调出不符合的标的，按周期持有标的，常见的还有可转债双低轮动策略，二八轮动（大小盘轮动）<br>
+3、通过轮动的方式，在每个周期尽量保持持有优选的标的，来获取超额收益</p>
+<h1 id="分析与实现">分析与实现</h1>
+<h3 id="1-轮动范围">1、轮动范围</h3>
+<p>主要为A股行业ETF且成交量、市值较高的，排除宽基，增加少量美股、港股ETF</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>代码</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>159941</td>
+<td>纳指</td>
+</tr>
+<tr>
+<td>2</td>
+<td>513050</td>
+<td>中概互联</td>
+</tr>
+<tr>
+<td>3</td>
+<td>512880</td>
+<td>证券</td>
+</tr>
+<tr>
+<td>4</td>
+<td>159995</td>
+<td>芯片</td>
+</tr>
+<tr>
+<td>5</td>
+<td>512170</td>
+<td>医疗</td>
+</tr>
+<tr>
+<td>6</td>
+<td>515790</td>
+<td>光伏</td>
+</tr>
+<tr>
+<td>7</td>
+<td>159928</td>
+<td>消费</td>
+</tr>
+<tr>
+<td>8</td>
+<td>512660</td>
+<td>军工</td>
+</tr>
+<tr>
+<td>9</td>
+<td>515030</td>
+<td>新能源车</td>
+</tr>
+<tr>
+<td>10</td>
+<td>513060</td>
+<td>恒生医疗</td>
+</tr>
+<tr>
+<td>11</td>
+<td>515220</td>
+<td>煤炭</td>
+</tr>
+<tr>
+<td>12</td>
+<td>512400</td>
+<td>有色金属</td>
+</tr>
+<tr>
+<td>13</td>
+<td>159998</td>
+<td>计算机</td>
+</tr>
+<tr>
+<td>14</td>
+<td>159865</td>
+<td>养殖</td>
+</tr>
+<tr>
+<td>15</td>
+<td>162411</td>
+<td>华宝油气</td>
+</tr>
+<tr>
+<td>16</td>
+<td>512980</td>
+<td>传媒</td>
+</tr>
+<tr>
+<td>17</td>
+<td>159766</td>
+<td>旅游</td>
+</tr>
+<tr>
+<td>18</td>
+<td>512200</td>
+<td>房地产</td>
+</tr>
+<tr>
+<td>19</td>
+<td>159996</td>
+<td>家电</td>
+</tr>
+<tr>
+<td>20</td>
+<td>513330</td>
+<td>恒生互联网</td>
+</tr>
+<tr>
+<td>21</td>
+<td>512480</td>
+<td>半导体</td>
+</tr>
+<tr>
+<td>22</td>
+<td>518880</td>
+<td>黄金</td>
+</tr>
+<tr>
+<td>23</td>
+<td>159611</td>
+<td>电力</td>
+</tr>
+<tr>
+<td>24</td>
+<td>516970</td>
+<td>基建</td>
+</tr>
+<tr>
+<td>25</td>
+<td>159755</td>
+<td>电池</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-买卖策略">2、买卖策略</h3>
+<p>1、择时</p>
+<ul>
+<li>择时策略<br>
+rsrs择时<br>
+其他？</li>
+<li>执行时间<br>
+如每周周一中午</li>
+</ul>
+<p>2、备选的ETF选优排序，取前五</p>
+<ul>
+<li>选优策略<br>
+20日动量<br>
+MA乖离</li>
+</ul>
+<h3 id="3-仓位">3、仓位</h3>
+<p>同时持有5只，资金平均分配，无买入条件则买入511880（银华日利）</p>
+<h3 id="4-回测">4、回测</h3>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li>https://www.joinquant.com/view/community/detail/f1c2854d96fa2bd0b356af8cbe153fc8</li>
+<li>https://www.joinquant.com/view/community/detail/29b074f390c55695296fe0d37aab7793</li>
+<li>https://www.joinquant.com/view/community/detail/116f28c9a329f4563be6be724059f916</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://blog.carryla.com/post/chao-die-20220920/" class="post-title gt-a-link">
+                    超跌20221012
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://blog.carryla.com/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
