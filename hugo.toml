@@ -1,0 +1,45 @@
+baseURL = 'https://apexdocker.github.io/'
+locale = 'zh-cn'
+title = 'Apex Blog'
+theme = 'PaperMod'
+
+enableRobotsTXT = true
+
+[params]
+  env = 'production'
+  description = '个人技术博客'
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+
+  [params.homeInfoParams]
+    Title = 'Hi there 👋'
+    Content = '欢迎来到我的技术博客'
+
+  [[params.socialIcons]]
+    name = 'github'
+    url = 'https://github.com/apexdocker'
+
+[menu]
+  [[menu.main]]
+    identifier = 'archives'
+    name = '归档'
+    url = '/archives/'
+    weight = 10
+  [[menu.main]]
+    identifier = 'tags'
+    name = '标签'
+    url = '/tags/'
+    weight = 20
+  [[menu.main]]
+    identifier = 'search'
+    name = '搜索'
+    url = '/search/'
+    weight = 30
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
