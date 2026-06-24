@@ -1,6 +1,6 @@
 baseURL = 'https://216612.xyz/'
 locale = 'zh-cn'
-title = 'Apex Blog'
+title = '216612'
 theme = 'PaperMod'
 
 enableRobotsTXT = true
@@ -16,6 +16,13 @@ enableRobotsTXT = true
   ShowWordCount = true
   ShowRssButtonInSectionTermList = true
   comments = true
+
+  [params.assets]
+    favicon = '/favicon.ico'
+    favicon16x16 = '/favicon.png'
+    favicon32x32 = '/favicon.png'
+    apple_touch_icon = '/favicon.png'
+    safari_pinned_tab = '/favicon.png'
 
   [params.homeInfoParams]
     Title = 'Hi there 👋'
@@ -41,6 +48,11 @@ enableRobotsTXT = true
     name = '搜索'
     url = '/search/'
     weight = 30
+  [[menu.main]]
+    identifier = 'about'
+    name = '关于'
+    url = '/about/'
+    weight = 40
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
