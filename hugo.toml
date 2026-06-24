@@ -15,6 +15,7 @@ enableRobotsTXT = true
   ShowCodeCopyButtons = true
   ShowWordCount = true
   ShowRssButtonInSectionTermList = true
+  comments = true
 
   [params.homeInfoParams]
     Title = 'Hi there 👋'
