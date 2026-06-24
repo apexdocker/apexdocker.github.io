@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>自动化 on Apex Blog</title><link>https://216612.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link><description>Recent content in 自动化 on Apex Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 25 Nov 2020 17:23:32 +0800</lastBuildDate><atom:link href="https://216612.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>U2自动安装APK</title><link>https://216612.xyz/posts/u2-zi-dong-an-zhuang-apk/</link><pubDate>Wed, 25 Nov 2020 17:23:32 +0800</pubDate><guid>https://216612.xyz/posts/u2-zi-dong-an-zhuang-apk/</guid><description>&lt;pre tabindex="0"&gt;&lt;code&gt;import uiautomator2 as u2
+import apkutils
+from loguru import logger
+class AndroidClient(object):
+d:u2
+@classmethod
+def start(cls, udid):
+cls.d = u2.connect(udid)
+cls.d.healthcheck()
+cls.d.implicitly_wait(5)
+cls.d.set_fastinput_ime(True)
+return cls.d
+class Base(object):
+def __init__(self):
+self.d = AndroidClient.d
+class ApkInstall(Base):
+def watch_device(self, keyword):
+&amp;#39;&amp;#39;&amp;#39;
+如果存在元素则自动点击
+:param keyword: exp: keyword=&amp;#34;yes|允许|好的|跳过&amp;#34;
+&amp;#39;&amp;#39;&amp;#39;
+for i in keyword.split(&amp;#34;|&amp;#34;):
+self.d.watcher.when(i).click()
+self.d.watcher.start(1.0)
+time.sleep(2)
+def unwatch_device(self):
+&amp;#39;&amp;#39;&amp;#39;关闭watcher &amp;#39;&amp;#39;&amp;#39;
+self.d.watcher.stop()
+time.sleep(2)
+def get_apk_info(self, path):
+&amp;#39;&amp;#39;&amp;#39;从apk获取信息
+&amp;#39;&amp;#39;&amp;#39;
+tmp = apkutils.APK(path).get_manifest()
+info = {}
+info[&amp;#39;versionCode&amp;#39;] = str(tmp.get(&amp;#39;@android:versionCode&amp;#39;))
+info[&amp;#39;versionName&amp;#39;] = str(tmp.get(&amp;#39;@android:versionName&amp;#39;))
+info[&amp;#39;package&amp;#39;] = str(tmp.get(&amp;#39;@package&amp;#39;))
+return info
+def local_install(self, apk_path):
+&amp;#39;&amp;#39;&amp;#39;
+安装本地apk 覆盖安装，不需要usb链接
+:param apk_path: apk文件本地路径
+&amp;#39;&amp;#39;&amp;#39;
+pkg_name = self.get_apk_info(apk_path)[&amp;#39;package&amp;#39;]
+file_name = os.path.basename(apk_path)[:12] + &amp;#39;.apk&amp;#39;
+logger.info(&amp;#39;start install %s&amp;#39; % file_name)
+self.d.shell(&amp;#39;rm -rf /sdcard/*.apk&amp;#39;)
+self.d.shell(&amp;#39;rm -rf /sdcard/apks/*.apk&amp;#39;)
+self.d.shell([&amp;#39;/data/local/tmp/atx-agent&amp;#39;, &amp;#39;server&amp;#39;, &amp;#39;-d&amp;#39;])
+if self.d.device_info[&amp;#39;brand&amp;#39;] == &amp;#39;vivo&amp;#39;:
+&amp;#39;&amp;#39;&amp;#39;Vivo 手机通过打开文件管理 安装app&amp;#39;&amp;#39;&amp;#39;
+dst = &amp;#39;/sdcard/apks/&amp;#39; + file_name
+self.d.push(apk_path, dst)
+self.d.app_stop(&amp;#39;com.android.packageinstaller&amp;#39;)
+self.d.app_stop(&amp;#39;com.android.filemanager&amp;#39;)
+self.d.app_start(&amp;#39;com.android.filemanager&amp;#39;)
+time.sleep(4)
+if self.d(text=&amp;#34;本地文件&amp;#34;).exists(timeout=3):
+self.d(text=&amp;#34;本地文件&amp;#34;).click()
+if self.d(text=&amp;#34;手机存储&amp;#34;).exists(timeout=3):
+self.d(text=&amp;#34;手机存储&amp;#34;).click()
+time.sleep(1)
+# self.d(scrollable=True).scroll.toEnd()
+# time.sleep(1)
+for i in range(10):
+if self.d(textContains=&amp;#34;apks&amp;#34;).exists:
+self.d(textContains=&amp;#34;apks&amp;#34;).click()
+time.sleep(1)
+break
+else:
+# self.d(scrollable=True).scroll.vert.forward(steps=100)
+self.d.swipe_ext(&amp;#34;up&amp;#34;, scale=0.8)
+time.sleep(1)
+for i in range(40):
+if self.d(textContains=file_name).exists:
+self.d(textContains=file_name).click()
+time.sleep(5)
+break
+else:
+# self.d(scrollable=True).scroll.vert.forward(steps=100)
+self.d.swipe_ext(&amp;#34;up&amp;#34;, scale=0.8)
+print(i)
+time.sleep(1)
+# self.d(text=u&amp;#34;继续安装&amp;#34;).click(timeout=15)
+if self.d(resourceId=&amp;#34;android:id/button1&amp;#34;).exists:
+self.d(resourceId=&amp;#34;android:id/button1&amp;#34;).click()
+else:
+self.d(resourceId=&amp;#34;com.android.packageinstaller:id/continue_button&amp;#34;).click()
+self.d(resourceId=&amp;#34;com.android.packageinstaller:id/ok_button&amp;#34;).click()
+time.sleep(8)
+elif self.d.device_info[&amp;#39;brand&amp;#39;] == &amp;#39;OPPO&amp;#39;:
+dst = &amp;#39;/sdcard/apks/&amp;#39; + file_name
+self.d.push(apk_path, dst)
+self.d.app_stop(&amp;#39;com.coloros.filemanager&amp;#39;)
+self.d.app_start(&amp;#39;com.coloros.filemanager&amp;#39;)
+time.sleep(4)
+if self.d(text=&amp;#34;手机存储&amp;#34;).exists(timeout=3):
+self.d(text=&amp;#34;手机存储&amp;#34;).click()
+if self.d(text=&amp;#34;所有文件&amp;#34;).exists(timeout=3):
+self.d(text=&amp;#34;所有文件&amp;#34;).click()
+time.sleep(1)
+self.d(scrollable=True).scroll.to(textContains=&amp;#34;apks&amp;#34;)
+time.sleep(2)
+self.d(textContains=&amp;#34;apks&amp;#34;).click()
+time.sleep(2)
+# self.d(scrollable=True).scroll.to(textContains=file_name)
+# time.sleep(2)
+self.d(textContains=file_name).click()
+time.sleep(5)
+btn_done = self.d(className=&amp;#34;android.widget.Button&amp;#34;, text=&amp;#34;完成&amp;#34;)
+while not btn_done.exists:
+self.d(text=&amp;#34;继续安装旧版本&amp;#34;).click_exists()
+self.d(text=&amp;#34;重新安装&amp;#34;).click_exists()
+if self.d(resourceId=&amp;#34;com.android.packageinstaller:id/install_confirm_panel&amp;#34;).exists:
+# R11Plus
+if self.d(resourceId=&amp;#34;com.android.packageinstaller:id/cancel_button&amp;#34;).exists:
+self.d(resourceId=&amp;#34;com.android.packageinstaller:id/bottom_button_layout&amp;#34;) \
+.click(offset=(0.5, 0.3))
+# R9s
+elif self.d(resourceId=&amp;#34;com.android.packageinstaller:id/bottom_button_layout&amp;#34;).exists:
+self.d(resourceId=&amp;#34;com.android.packageinstaller:id/bottom_button_layout&amp;#34;) \
+.click(offset=(0.75, 0.5))
+# R17
+elif not self.d(resourceId=&amp;#34;com.android.packageinstaller:id/bottom_button_layout&amp;#34;).exists:
+self.d(resourceId=&amp;#34;com.android.packageinstaller:id/install_confirm_panel&amp;#34;) \
+.click(offset=(0.5, 0.95))
+time.sleep(3)
+btn_done.click()
+else:
+dst = &amp;#39;/data/local/tmp/&amp;#39; + file_name
+self.d.push(apk_path, dst)
+self.watch_device(&amp;#39;允许|继续安装|允许安装|始终允许|安装|重新安装&amp;#39;)
+r = self.d.shell([&amp;#39;pm&amp;#39;, &amp;#39;install&amp;#39;, &amp;#39;-r&amp;#39;, dst], stream=True)
+id = r.text.strip()
+print(time.strftime(&amp;#39;%H:%M:%S&amp;#39;), id)
+self.unwatch_device()
+packages = list(map(lambda p: p.split(&amp;#39;:&amp;#39;)[1], self.d.shell(&amp;#39;pm list packages&amp;#39;).output.splitlines()))
+if pkg_name in packages:
+self.d.shell([&amp;#39;rm&amp;#39;, dst])
+else:
+raise Exception(&amp;#39;%s 安装失败&amp;#39; % apk_path)
+def install_apk(self):
+apk = &amp;#39;xxx.apk&amp;#39;
+pkg_name = self.get_apk_info(apk)[&amp;#39;package&amp;#39;]
+self.d.app_stop(pkg_name)
+self.d.app_uninstall(pkg_name)
+self.local_install(apk)
+self.d.app_start(pkg_name)
+time.sleep(2)
+# 授权
+self.d.shell(&amp;#39;pm grant {} android.permission.READ_PHONE_STATE&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.READ_EXTERNAL_STORAGE&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.ACCESS_COARSE_LOCATION&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.ACCESS_FINE_LOCATION&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.CAMERA&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.RECORD_AUDIO&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.WRITE_EXTERNAL_STORAGE&amp;#39;.format(pkg_name))
+self.d.shell(&amp;#39;pm grant {} android.permission.READ_CONTACTS&amp;#39;.format(pkg_name))
+&lt;/code&gt;&lt;/pre&gt;</description></item></channel></rss>

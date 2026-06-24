@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Charles on Apex Blog</title><link>https://216612.xyz/tags/charles/</link><description>Recent content in Charles on Apex Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 25 Nov 2020 11:16:41 +0800</lastBuildDate><atom:link href="https://216612.xyz/tags/charles/index.xml" rel="self" type="application/rss+xml"/><item><title>Android 通过 VirtualXposed 进行 Charles https 抓包</title><link>https://216612.xyz/posts/android-virtualxposed-charles-https/</link><pubDate>Wed, 25 Nov 2020 11:16:41 +0800</pubDate><guid>https://216612.xyz/posts/android-virtualxposed-charles-https/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;Android7.0以上，无需root，即可抓包的方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;由于Android的机制，7.0以上不再信任用户证书，如&lt;a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/"&gt;Charles&lt;/a&gt;中的介绍&lt;/p&gt;
+&lt;p&gt;所以有3种方法可以解决这个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最暴力的，root，把证书加入到系统证书&lt;/li&gt;
+&lt;li&gt;如果是自家APP，参考上面链接，在APP中设置信任用户证书&lt;/li&gt;
+&lt;li&gt;通过VirtualXposed+插件绕过证书检查（本文）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="1手机安装virtualxposed"&gt;1、手机安装VirtualXposed&lt;/h3&gt;
+&lt;p&gt;不多介绍，直接下载安装
+地址：https://github.com/android-hacker/VirtualXposed/releases&lt;/p&gt;
+&lt;h3 id="2virtualxposed中安装-justtrustme-或--sslunpinning-用于绕过-ssl-证书检查"&gt;2、VirtualXposed中安装 JustTrustMe 或 SSLUnpinning 用于绕过 SSL 证书检查&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;JustTrustMe：https://github.com/Fuzion24/JustTrustMe/releases&lt;/li&gt;
+&lt;li&gt;TrustMeAlready：https://github.com/ViRb3/TrustMeAlready&lt;/li&gt;
+&lt;li&gt;SSLUnpinning：https://github.com/ac-pm/SSLUnpinning_Xposed/blob/master/mobi.acpm.sslunpinning_latest.apk&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在VirtualXposed中安装apk并启用模块
+并在设置中，点击重启以使模块生效&lt;/p&gt;
+&lt;h3 id="3virtualxposed中安装目标apk"&gt;3、VirtualXposed中安装目标apk&lt;/h3&gt;
+&lt;p&gt;在VirtualXposed中安装目标apk，并配置好抓包工具，从VirtualXposed中启动APP开始抓包&lt;/p&gt;</description></item><item><title>iOS 越狱后安装 ssl-kill-switch2 进行 https 抓包</title><link>https://216612.xyz/posts/ios_charles/</link><pubDate>Sun, 22 Nov 2020 22:06:34 +0800</pubDate><guid>https://216612.xyz/posts/ios_charles/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;今天使用charles开启了SSL抓包，发现有些APP抓不到，有的APP就可以，例如优X二手车，经过google发现抓不到包是因为app使用了SSL Pinning技术&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查询发现，越狱的ios只要安装&lt;a href="https://github.com/nabla-c0d3/ssl-kill-switch2"&gt;ssl-kill-switch2&lt;/a&gt;就可以抓到了&lt;/p&gt;
+&lt;h4 id="1在cydia中安装下面3个依赖"&gt;1、在Cydia中安装下面3个依赖&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian Packager&lt;/li&gt;
+&lt;li&gt;Cydia Substrate&lt;/li&gt;
+&lt;li&gt;PreferenceLoader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2下载ssl-kill-switch2deb"&gt;2、下载ssl-kill-switch2.deb&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://github.com/nabla-c0d3/ssl-kill-switch2/releases"&gt;https://github.com/nabla-c0d3/ssl-kill-switch2/releases&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="3mac通过usb连接手机安装ssl-kill-switch2deb"&gt;3、Mac通过USB连接手机，安装ssl-kill-switch2.deb&lt;/h4&gt;
+&lt;p&gt;ios9 需要通过Cydia安装 openssh&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;brew install libimobiledevice
+iproxy 2222 22
+scp -P 2222 ~/Downloads/ssl-kill-switch2.deb root@127.0.0.1:~ #输入密码 默认 alpine
+ssh -p 2222 root@127.0.0.1
+dpkg -i &amp;lt;package&amp;gt;.deb
+killall -HUP SpringBoard
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在设置中就会增加一个选项 SSL Kill Switch2，开启后，重启APP即可抓包&lt;/p&gt;</description></item></channel></rss>
