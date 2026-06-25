@@ -4,6 +4,7 @@ title = '216612'
 theme = 'PaperMod'
 
 enableRobotsTXT = true
+buildFuture = true
 
 [params]
   env = 'production'
